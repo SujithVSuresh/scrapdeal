@@ -1,35 +1,32 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express from 'express';
+import express from "express";
 import connectDB from "./config/db.js";
-import { fileURLToPath } from 'url';
-import path from 'path'
-import cors from 'cors';
+import { fileURLToPath } from "url";
+import path from "path";
+import cors from "cors";
 import authRouter from "./routes/auth.routes.js";
 import productRouter from "./routes/product.routes.js";
 import orderRouter from "./routes/order.routes.js";
 const app = express();
 
+app.enableCors({
+  origin: ["https://scrapdeal-client.vercel.app", "http://localhost:5173"], // allow Vercel + local dev
+  credentials: true, // allow cookies or Authorization headers
+});
 
-// Middleware
-app.use(
-  cors({
-    origin: '*', // Allow ALL origins
-  }),
-);
 app.use(express.json());
 
 // ✅ Serve uploaded images statically
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
-app.use('/api/auth', authRouter);
-app.use('/api/product', productRouter);
-app.use('/api/order', orderRouter);
-
+app.use("/api/auth", authRouter);
+app.use("/api/product", productRouter);
+app.use("/api/order", orderRouter);
 
 // Start
 connectDB();
