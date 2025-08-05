@@ -11,10 +11,12 @@ import productRouter from "./routes/product.routes.js";
 import orderRouter from "./routes/order.routes.js";
 const app = express();
 
-app.enableCors({
-  origin: ["https://scrapdeal-client.vercel.app", "http://localhost:5173"], // allow Vercel + local dev
-  credentials: true, // allow cookies or Authorization headers
-});
+app.use(
+  cors({
+    origin: true, // allows all origins
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
