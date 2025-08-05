@@ -16,6 +16,8 @@ app.use(cors({
   credentials: true,
 }));
 
+app.options('*', cors());
+
 app.use(express.json());
 
 // ✅ Serve uploaded images statically
