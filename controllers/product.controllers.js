@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 
 
 const listProduct = async (req, res) => {
+
+
   try {
     const {
       name,
@@ -14,6 +16,8 @@ const listProduct = async (req, res) => {
       minOrderQty,
       type
     } = req.body;
+
+      console.log(req.file, "this is the request file....")
 
     const sellerId = req.user.id;
 
